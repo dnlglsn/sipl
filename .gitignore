@@ -1,4 +1,7 @@
-# From: https://github.com/github/gitignore/blob/master/Python.gitignore
+# Based on: https://github.com/github/gitignore/blob/master/Python.gitignore
+
+# My own stuff
+notebooks/.ipynb_checkpoints/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

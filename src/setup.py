@@ -28,6 +28,9 @@ description = open(join("..", "README")).read()
 setup(name="sipl",
       version=version,
       description=description,
-      author="Daniel J. Gleason",
+      author="Daniel Gleason",
       author_email="dgleason@gmail.com",
-      packages=["sipl"])
+      packages=["sipl",
+                "sipl.hdfs",
+                "sipl.image",
+                "sipl.spark"])
