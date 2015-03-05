@@ -20,6 +20,10 @@ def hstack(arrays):
     return stack(arrays, np.hstack)
 
 
+def dstack(arrays):
+    return stack(arrays, np.dstack)
+
+
 def stack(arrays, npFunc):
 
     retVal = None
