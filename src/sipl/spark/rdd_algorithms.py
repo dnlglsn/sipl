@@ -1,6 +1,7 @@
 from sipl import DEFAULT_NUM_SPLITS, Algorithm
 from sipl.image import Image, vsplit, vstack
 
+
 class ImageToRDD(Algorithm):
 
     _params = {"numSplits": DEFAULT_NUM_SPLITS,
