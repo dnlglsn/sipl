@@ -9,6 +9,10 @@ class ImageToRDD(Algorithm):
 
     def __call__(self, image):
 
+        # If numSplits was not specified, use the default parallelism
+        if self.numSplits is None:
+            self.numSplits = self.context.defaultParallelism
+
         # Create an rdd of the split offsets and sizes
         splits = vsplit(image, self.numSplits)
 
