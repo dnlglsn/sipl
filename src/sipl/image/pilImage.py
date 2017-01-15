@@ -18,6 +18,7 @@ class ImageToPIL(Algorithm):
 
         # I only care about showing images which can map to pixel values
         if image.dtype != np.uint8:
+            print "=============", image.shape, image.dtype
             raise TypeError("Can only show images with an unsigned byte dtype")
 
         # Figure out the mode based on the number of channels
