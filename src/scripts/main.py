@@ -1,4 +1,4 @@
-import pyspark
+# import pyspark
 import numpy as np
 
 from sipl.image import PILImageIn, ImageToPIL
@@ -21,24 +21,26 @@ def random_color_channel(x):
     r.metadata.update(x.metadata)
     return r
 
+
 if __name__ == "__main__":
 
     filename = "../../data/cheetah.jpg"
     hdfsFilename = "hdfs://localhost:9000/cheetah.rdd"
 
-    if hdfs_exists(hdfsFilename):
-        hdfs_rm(hdfsFilename)
+    # if hdfs_exists(hdfsFilename):
+    #     hdfs_rm(hdfsFilename)
 
-    sc = pyspark.SparkContext()
+    # sc = pyspark.SparkContext()
 
     imageIn = PILImageIn()(filename)
-    rdd = ImageToRDD(context=sc)(imageIn)
-    RDDToHDFS(filename=hdfsFilename)(rdd)
+    # rdd = ImageToRDD(context=sc)(imageIn)
+    # RDDToHDFS(filename=hdfsFilename)(rdd)
 
-    rdd2 = HDFSToRDD(context=sc)(hdfsFilename)
+    # rdd2 = HDFSToRDD(context=sc)(hdfsFilename)
 
-    rdd2 = rdd2.map(random_color_channel)
+    # rdd2 = rdd2.map(random_color_channel)
 
-    imageOut = RDDToImage()(rdd2)
+    # imageOut = RDDToImage()(rdd2)
 
-    ImageToPIL(decimationFactor=3)(imageOut).show()
+    # ImageToPIL(decimationFactor=3)(imageOut).show()
+    ImageToPIL(decimationFactor=3)(imageIn).show()

@@ -1,6 +1,5 @@
 import numpy as np
 import json
-import timeit
 
 from image import Image
 
@@ -10,7 +9,6 @@ class STRImageJSONEncoder(json.JSONEncoder):
     """ The class used by json to encode the image object """
 
     def default(self, obj):
-        print "STRImageJSONEncoder",    type(obj)
         if isinstance(obj, STRImage):
             return STRImage._dump(obj)
         if isinstance(obj, str):
@@ -23,7 +21,6 @@ class STRImageJSONEncoder(json.JSONEncoder):
 def construct_str_image(dct):
     """ Used to reconstruct the image from a pickled object. Must be a function
     at the base level and not a static method of a class. """
-    print "construct_str_image"
     data = dct["data"]
     image = np.fromstring(data, dct["dtype"]).reshape(dct["shape"])
     image = image.view(STRImage)
@@ -37,10 +34,7 @@ def str_image_json_hook(data):
 
     # If we are actually a serialized image, reconstruct it
     if isinstance(data, dict) and "data" in data:
-        print "yay"
         return construct_str_image(data)
-
-    print "aa"
 
     # Otherwise, decode unicode strings and return
     rv = {}
@@ -71,8 +65,6 @@ class STRImage(Image):
         # Try with a string to see the speed
         data = self.tostring()
 
-        print self.shape, len(data)
-
         # Store the necessary information to recreate the object
         return {"data": data,
                 "dtype": str(self.dtype),
@@ -90,11 +82,9 @@ class STRImage(Image):
 
         # Spark uses the string representation when serializing, so I have to
         # dump the whole thing into a string. Try to not call this on it's own.
-        print "str"
         return str(json.dumps(self, cls=STRImageJSONEncoder))
 
     def dumps(self):
-        print "dumps"
         return str(self)
 
 

@@ -18,7 +18,6 @@ class ImageToPIL(Algorithm):
 
         # I only care about showing images which can map to pixel values
         if image.dtype != np.uint8:
-            print "=============", image.shape, image.dtype
             raise TypeError("Can only show images with an unsigned byte dtype")
 
         # Figure out the mode based on the number of channels
@@ -57,7 +56,7 @@ class PILImageIn(ImageIn):
         # Open the file using PIL and convert to a numpy array
         numCols, numRows = pilImage.size
         numChannels = {"L": 1, "RGB": 3, "RGBA": 4}[pilImage.mode]
-        obj = np.fromstring(pilImage.tostring(), dtype=np.uint8)
+        obj = np.fromstring(pilImage.tobytes(), dtype=np.uint8)
         obj = obj.reshape((numRows, numCols, numChannels))
         return obj
 

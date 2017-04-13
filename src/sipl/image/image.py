@@ -196,7 +196,7 @@ class Image(np.ndarray):
             # If the current slice is None, keep the dimension empty. This can
             # occur if we just add an arbitrary dimension, such as
             # np.array([[[[[1]]]]])
-            if index[i] == None:
+            if index[i] is None:
                 dimData.insert(i, dim_data_dict())
                 addedDims += 1
 
@@ -250,11 +250,12 @@ class ImageIn(Algorithm, Image):
     def __call__(self, filename, **kwargs):
 
         # Try to open file via the baseclass _open method
-        try:
-            obj = self._open(filename, **kwargs)
-        except Exception, e:
-            raise IOError("%s - unable to open %s: %s" %
-                          (self.__class__.__name__, filename, str(e)))
+        obj = self._open(filename, **kwargs)
+        # try:
+        #     obj = self._open(filename, **kwargs)
+        # except Exception, e:
+        #     raise IOError("%s - unable to open %s: %s" %
+        #                   (self.__class__.__name__, filename, str(e)))
 
         # Call the base class __new__ with the object, to populate metadata
         obj = Image.__new__(self.__class__, obj)
